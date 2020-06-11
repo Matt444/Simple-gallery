@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    .container.mt-4
+      .col-6.offset-3
+            h3 Miniatures' settings
+            form
+                  .form-group.row
+                        label.col-sm-2.col-form-label(for='width') Width
+                        .col-sm-10
+                              input#width.form-control(type='text')
+                  .form-group.row
+                        label.col-sm-2.col-form-label(for='height') Height
+                        .col-sm-10
+                              input#height.form-control(type='text')
+                  fieldset.form-group
+                        .row
+                              legend.col-form-label.col-sm-2.pt-0 Modes
+                              .col-sm-10
+                                    .form-check
+                                          input#mode1.form-check-input(type='radio', name='gridRadios', value='1', checked='')
+                                          label.form-check-label(for='mode1') Change proportion
+                                    .form-check
+                                          input#mode2.form-check-input(type='radio', name='gridRadios', value='2')
+                                          label.form-check-label(for='mode2') Cut out centre of the image
+                  .form-group.row
+                        .col-sm-10
+                              button.btn.btn-primary(type='submit') Update
+
+    script(src="javascripts/configuration.js")
