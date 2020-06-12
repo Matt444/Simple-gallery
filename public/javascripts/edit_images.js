@@ -113,7 +113,8 @@ then(data => {
                     image
                 }),
             })
-            .then(data => {
+            .then(res => {
+                if(res.status != 200) throw Error("server error");
                 btn.text('Updated');
                 btn.removeClass('btn-warning');
                 btn.addClass('btn-success');
@@ -124,6 +125,7 @@ then(data => {
                 }, 1000);
             })
             .catch(err => {
+                console.log(err);
                 btn.text('Error');
                 btn.removeClass('btn-warning');
                 btn.addClass('btn-danger');

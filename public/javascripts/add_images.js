@@ -3,7 +3,7 @@ let isAdvancedUpload = function() {
         return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
     }();
 
-    var $form = $('.box');
+let $form = $('.box');
 
 if (isAdvancedUpload) {
     $form.addClass('has-advanced-upload');
@@ -35,7 +35,6 @@ if (isAdvancedUpload) {
             let file = droppedFiles[i];
             console.log(file.name);
 
-
             $("#uploading__list").append(`<div class="card mb-3" style="width: 100%;">
                     <div class="d-flex align-items-center">
                         <div>
@@ -52,7 +51,6 @@ if (isAdvancedUpload) {
             let reader = new FileReader();
 
             reader.addEventListener("load", function () {
-                // convert image file to base64 string
                 let preview = document.querySelector(`#preview${rand+i}`);
                 console.log(preview);
                 preview.src = reader.result;

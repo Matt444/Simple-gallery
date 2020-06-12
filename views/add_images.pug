@@ -6,12 +6,10 @@ block content
             .row.justify-content-center.text-center.d-flex.align-items-center.flex-column(style='height: 200px;')
                   img.m-2(src='images/upload.png', alt='', style='height: 80px; width: 80px;')
                   .box__input
-                        input#file.box__file(type='file', name='files[]', data-multiple-caption='{count} files selected', multiple='')
-                        label(for='file')
-                              strong Choose a file
-                              span.box__dragndrop  or drag it here
-                              | .
-                        button.box__button(type='submit') Upload
+                        input#file.box__file(name='files[]', data-multiple-caption='{count} files selected', multiple='')
+                        label
+                              span.box__dragndrop  Drag files here
+                              
                   .box__uploading Uploading…
                   .box__success Done!
                   .box__error

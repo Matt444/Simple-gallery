@@ -47,6 +47,7 @@ fetch('/api/config')
         }, 1000);
         console.log(res);
     }).catch(err => {
+        console.log(err);
         updateButton.classList.remove('btn-warning');
         updateButton.classList.add('btn-danger');
         updateButton.textContent = 'Error';
