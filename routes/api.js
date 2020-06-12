@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const image = require('../models/image.js');
 const configuration = require('../models/configuration.js');
+const globalConfig = require('../config');
 
 router.get('/config', (req, res, next) => {
-    let findConf = configuration.findById('5ee201ce91dcdb066693a48a');
+    let findConf = configuration.findById(globalConfig.configId);
     findConf.exec((err,data) => {
         res.json({
             width: data.width,

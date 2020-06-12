@@ -8,6 +8,7 @@ const fileType = require('file-type');
 const image = require('../models/image.js');
 const configuration = require('../models/configuration.js');
 const Jimp = require('jimp');
+const globalConfig = require('../config');
 
 router.get('/', function(req, res, next) {
   console.log(path.join(__dirname, '..', 'public'));
@@ -48,7 +49,7 @@ router.post('/', (req,res) => {
           }
         });
 
-        let findConf = configuration.findById('5ee201ce91dcdb066693a48a');
+        let findConf = configuration.findById(globalConfig.configId);
         findConf.exec((err,data) => {
             Jimp.read(path.join(__dirname, '../public', 'images/' + filename), (err, photo) => {
               if(data.mode == 1) {

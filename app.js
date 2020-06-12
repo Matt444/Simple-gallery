@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://admin:187dZyAPhqZa0i9c@cluster0-iyyrh.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+var config = require('./config');
+mongoose.connect(config.db, {useNewUrlParser: true});
 
 var indexRouter = require('./routes/index');
 var configurationRouter = require('./routes/configuration');

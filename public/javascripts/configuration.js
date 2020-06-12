@@ -36,6 +36,7 @@ fetch('/api/config')
         }),
           
     }).then(res => {
+        if(res.status != 200) throw new Error("server error");
         updateButton.classList.remove('btn-warning');
         updateButton.classList.add('btn-success');
         updateButton.textContent = 'Updated';
