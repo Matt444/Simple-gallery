@@ -9,7 +9,7 @@ then(data => {
     images.forEach(image => {
 
         $('#list').append(`
-            <div class="card mb-3" style="width: 100%;">
+            <div id='card-${image.name}' class="card mb-3" style="width: 100%;">
                 <div class="row no-gutters">
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <img src="${image.min_path}" class="" alt="..." style="max-height: 202px;">
@@ -47,11 +47,17 @@ then(data => {
                         </form>
                         </div>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-center align-items-center">
-                        <button id="bt-save-${image.name}" type="button m-1" class="btn btn-primary">Save changes</button>
+                    <div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
+                        <button id="bt-delete-${image.name}" type="button m-1" class="btn btn-danger m-2">Delete image</button>
+                        <button id="bt-save-${image.name}" type="button m-1" class="btn btn-primary m-2">Save changes</button>
                     </div>
                 </div>
         </div>`);
+
+        // deactive save image option
+        $("img").bind("contextmenu",function(e){
+            return false;
+        });
 
         $(`#signature-${image.name}`).val(image.signature);
         // updating list of categories
@@ -136,6 +142,23 @@ then(data => {
                 }, 1000);
             });
         });
+
+        $(`#bt-delete-${image.name}`).on('click', (e) => {
+            e.preventDefault();
+            fetch('edit_images/delete/image', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    image
+                }),
+            })
+            .then(res => {
+                
+            })
+            $(`#card-${image.name}`).remove();
+        })
     });
 });    
 

@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 const image = require('../models/image.js');
+
 
 router.get('/', function(req, res, next) {
   res.render('edit_images', { title: 'Edit images' });
@@ -27,6 +30,26 @@ router.post('/update/image', (req,res,next) => {
           }     
       });
   })  
+});
+
+// delete chosen file from database and filesystem
+router.post('/delete/image', (req,res) => {
+  img = req.body.image;
+  console.log(img.name);
+
+  fs.unlink(path.join(__dirname,'../public',img.img_path), (err) => {
+    if(err) console.log(err);
+  });
+
+  fs.unlink(path.join(__dirname, '../public',img.min_path), (err) => {
+    if(err) console.log(err);
+  });
+
+  image.deleteOne({name: img.name}, (err) => {
+    if(err) console.log(err);
+  });
+
+  res.end();
 });
 
 module.exports = router;

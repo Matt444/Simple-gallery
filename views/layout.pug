@@ -12,12 +12,12 @@ html
   body
     nav.navbar.navbar-expand-lg.navbar-light.bg-light(class='background-color: #e3f2fd;')
       .container
-        a.navbar-brand(href='#') Navbar
+        a.navbar-brand(href='/') Gallery
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNavAltMarkup', aria-controls='navbarNavAltMarkup', aria-expanded='false', aria-label='Toggle navigation')
           span.navbar-toggler-icon
         #navbarNavAltMarkup.collapse.navbar-collapse
           .navbar-nav
-            +nav_item('Gallery', '/')
+            +nav_item('Main page', '/')
             +nav_item('Add images', '/add_images')
             +nav_item('Edit images', '/edit_images')
             +nav_item('Configuration', '/configuration')

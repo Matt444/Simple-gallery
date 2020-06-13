@@ -1,7 +1,3 @@
-$(document).bind("contextmenu",function(e){
-    return false;
-});
-
 let images = [];
 let categories = []
 let visibleImages = {}
@@ -32,7 +28,7 @@ then(data => {
                         </div>
                         </div>
                     </div>`);
-
+        
         // updating list of categories
         image.categories.forEach(cat => {
             if(categories.map(c => c.toUpperCase()).indexOf(cat.toUpperCase()) == -1) {
@@ -96,9 +92,13 @@ function showVisibleImages() {
     images.forEach(image => {
         if(visibleImages[image.name]) {
             $('#gallery>.row').append(`<div class="mx-1" >` + 
-            `<img src="${image.min_path}" alt="" class="img-thumbnail m-1" data-toggle="modal" data-target="#${'modal' + image.name}">` +
+            `<img src="${image.min_path}" alt="${image.signature}" class="img-thumbnail m-1" data-toggle="modal" data-target="#${'modal' + image.name}">` +
             `<p id="signature">${image.signature}</p> </div>`);
         }
+    });
+    // deactivate save image option
+    $("img").bind("contextmenu",function(e){
+        return false;
     });
 }
 

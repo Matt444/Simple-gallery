@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
   res.render('add_images', { title: 'Add images' });
 });
 
+// add image to gallery
 router.post('/', (req,res) => {
   let photos = [];
   let form = new formidable.IncomingForm();
