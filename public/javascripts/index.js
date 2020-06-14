@@ -1,3 +1,13 @@
+$(document).mousedown(function(event) {
+    switch (event.which) {
+        case 3:
+            console.log('Right Mouse button pressed.');
+            // deactivate save image option
+            $('img').bind("contextmenu", (e) => false);
+            break;
+    }
+});
+
 let images = [];
 let categories = []
 let visibleImages = {}
@@ -13,21 +23,6 @@ then(data => {
 
     images.forEach(image => {
         visibleImages[image.name] = true;
-        $('#modals').append(`
-                    <div class="modal fade" id="${'modal' + image.name}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body text-center">
-                            <img src="${image.img_path}" style="width: 100%;" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                        </div>
-                    </div>`);
         
         // updating list of categories
         image.categories.forEach(cat => {
@@ -91,16 +86,28 @@ function showVisibleImages() {
     $('#gallery>.row>div').remove();
     images.forEach(image => {
         if(visibleImages[image.name]) {
-            $('#gallery>.row').append(`<div class="mx-1" >` + 
-            `<img src="${image.min_path}" alt="${image.signature}" class="img-thumbnail m-1" data-toggle="modal" data-target="#${'modal' + image.name}">` +
-            `<p id="signature">${image.signature}</p> </div>`);
+            $('#gallery>.row').append(`<div class="mx-1" >
+            <a href="${image.img_path}" data-fancybox="gallery" data-caption="${image.signature}">
+                <img src="${image.min_path}" alt="${image.signature}" class="img-thumbnail m-1" data-toggle="modal" data-target="#${'modal' + image.name}">
+            </a>
+            <p id="signature">${image.signature}</p> 
+            </div>`);
         }
     });
-    // deactivate save image option
-    $("img").bind("contextmenu",function(e){
-        return false;
-    });
 }
+
+function handler( event ) {
+    var target = $( event.target );
+    if ( target.is( "img" ) ) {
+        target.bind("contextmenu",function(e){
+            return false;
+        });
+    }
+}
+
+
+
+
 
 function updateCategoriesButtons() {
     categories.forEach(category => {

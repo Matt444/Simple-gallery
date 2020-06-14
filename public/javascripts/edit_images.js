@@ -1,9 +1,7 @@
-let images = []
 
 fetch('/api/images').
 then(json => json.json()).
-then(data => {
-    images = data;
+then(images => {
     console.log(images);
 
     images.forEach(image => {
@@ -54,16 +52,10 @@ then(data => {
                 </div>
         </div>`);
 
-        // deactive save image option
-        $("img").bind("contextmenu",function(e){
-            return false;
-        });
-
         $(`#signature-${image.name}`).val(image.signature);
-        // updating list of categories
+
+        // Updating list of categories
         image.categories.forEach(cat => {
-            
-            console.log('showing cat ' + cat);
             $(`#categories-list-${image.name}`).append(`
                 <div class="alert alert-warning alert-dismissible fade show m-1 p-1 pr-3">
                     <span id="categories-name">${cat}</span>
@@ -72,14 +64,15 @@ then(data => {
                     </button>
                 </div>
             `);
+            // Adding listener to enable deleteing categories
             $(`#bt-${image.name}-${cat}`).on('click', () => {
                 console.log("delete " + cat);
                 let index = image.categories.indexOf(cat);
                 if (index !== -1) image.categories.splice(index, 1);
-                console.log(image.categories);
             });
         });
 
+        // Listener to Add button which adds category
         $(`#bt-add-cat-${image.name}`).on('click', (e) =>  {
             e.preventDefault();
             let newcat = $(`#input-add-cat-${image.name}`).val();
@@ -103,6 +96,7 @@ then(data => {
             }
         })
 
+        // Listener to Save changes button
         $(`#bt-save-${image.name}`).on('click', (e) => {
             e.preventDefault();
             btn = $(`#bt-save-${image.name}`);
@@ -143,6 +137,7 @@ then(data => {
             });
         });
 
+        // Listener to Delete button
         $(`#bt-delete-${image.name}`).on('click', (e) => {
             e.preventDefault();
             fetch('edit_images/delete/image', {
@@ -154,13 +149,19 @@ then(data => {
                     image
                 }),
             })
-            .then(res => {
-                
-            })
+            .catch(err => console.log(err));
             $(`#card-${image.name}`).remove();
         })
     });
-});    
+    
+})
+.then(() => {
+    // Deactive save image option
+    $("img").bind("contextmenu",function(e){
+        return false;
+    });
+})
+.catch(err => console.log(err));
 
 
 

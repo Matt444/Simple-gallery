@@ -12,6 +12,7 @@ var configurationRouter = require('./routes/configuration');
 var apiRouter = require('./routes/api');
 var addImagesRouter = require('./routes/add_images');
 var editImagesRouter = require('./routes/edit_images');
+var instructionRouter = require('./routes/instruction');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -41,6 +42,7 @@ app.use('/configuration', configurationRouter);
 app.use('/api', apiRouter);
 app.use('/add_images', addImagesRouter);
 app.use('/edit_images', editImagesRouter);
+app.use('/instruction', instructionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

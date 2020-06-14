@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('edit_images', { title: 'Edit images' });
 });
 
-// update informations about image and return status when it's done
+// Update informations about image and return status when it's done
 router.post('/update/image', (req,res,next) => {
   img = req.body.image;
   console.log(img.name);
@@ -32,7 +32,7 @@ router.post('/update/image', (req,res,next) => {
   })  
 });
 
-// delete chosen file from database and filesystem
+// Delete chosen file from database and filesystem
 router.post('/delete/image', (req,res) => {
   img = req.body.image;
   console.log(img.name);
@@ -49,7 +49,7 @@ router.post('/delete/image', (req,res) => {
     if(err) console.log(err);
   });
 
-  res.end();
+  res.status(200).end();
 });
 
 module.exports = router;

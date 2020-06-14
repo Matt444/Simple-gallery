@@ -4,7 +4,7 @@ const image = require('../models/image.js');
 const configuration = require('../models/configuration.js');
 const globalConfig = require('../config');
 
-// return configuration of images' parameters
+// Return configuration of images' parameters
 router.get('/config', (req, res, next) => {
     let findConf = configuration.findById(globalConfig.configId);
     findConf.exec((err,data) => {
@@ -16,7 +16,7 @@ router.get('/config', (req, res, next) => {
     });
 });
 
-// return list of images
+// Return list of images
 router.get('/images', (req,res,next) => {
     const findImages = image.find();
 

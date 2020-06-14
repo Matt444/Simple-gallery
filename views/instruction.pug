@@ -1,0 +1,26 @@
+extends layout 
+
+block content
+    .container
+        .card.m-4
+            .card-header
+                    | Instrukcja
+            .card-body   
+                h4 1. Main page
+                p
+                    |Wyświetla wszystkie zdjęcia znajdujące się w bazie danych. Po wybaraniu kategorii lista zdjęć jest przeładowywana
+                    |i wyświetlane są tylko zdjęcia należące do wybranej kategorii. Po kliknięciu na zdjęcie jest ono powiększane przy pomocy
+                    |biblioteki fancybox. Możliwość zapisu zdjęcia została zablokowana przy pomocy js.
+                h4 2. Add images
+                p
+                    |Pozwala na dodanie nowych zdjęć przy pomocy okna drag and drop. Budowana jest lista wskazująca na postęp w uploadzie
+                    |poszczególnych zdjęć. Gdy plik zostanie wysłany na serwer oraz wszystkie operacje po stronie backendu zostaną wykonane
+                    |pasek postępu zmienia kolor na zielony.
+                h4 3. Edit images
+                p
+                    |Pozwala na zmianę kategorii, podpisu danego zdjęcia oraz na jego usunięcie.
+                h4 4. Configuration
+                p
+                    |Pozwala na dopasowanie ustawień minaturki zdjęć. Po zatwierdzeniu zmian miniaturki są tworzone po stronie backendu i strona 
+                    |zostaje na chwilę zablokowana.
+                        

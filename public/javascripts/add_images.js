@@ -1,3 +1,4 @@
+// Based on https://css-tricks.com/drag-and-drop-file-uploading/
 let isAdvancedUpload = function() {
     let div = document.createElement('div');
         return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
@@ -7,8 +8,6 @@ let $form = $('.box');
 
 if (isAdvancedUpload) {
     $form.addClass('has-advanced-upload');
-
-    let droppedFiles = false;
 
     $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
         e.preventDefault();
@@ -24,43 +23,43 @@ if (isAdvancedUpload) {
         if ($form.hasClass('is-uploading')) return false;
         $form.addClass('is-uploading').removeClass('is-error');
         
-        droppedFiles = e.originalEvent.dataTransfer.files;
-        console.log(droppedFiles[0]);
-
-        console.log(typeof(e.originalEvent.dataTransfer.files));
+        let droppedFiles = [];
+        for(let i = 0;i < e.originalEvent.dataTransfer.files.length;i++)
+            droppedFiles.push(e.originalEvent.dataTransfer.files[i]);
 
         let rand = Date.now();
 
-        for(let i = 0;i < droppedFiles.length;i++) {
-            let file = droppedFiles[i];
-            console.log(file.name);
-
+        // Add file to list and load miniatures
+        droppedFiles.map((file, index) => {
             $("#uploading__list").append(`<div class="card mb-3" style="width: 100%;">
                     <div class="d-flex align-items-center">
-                        <div>
-                            <img  id='preview${rand+i}' src='images/spinner.jpg' class="card-img" alt="..." style="width: 80px; height: 100%;">
+                        <div id="preview-${rand+index}" class="d-flex justify-content-center" style="width: 80px; height: 100%;">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
                         
                         <div class="progress m-2 w-100">
-                            <div id='progress${rand+i}' class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            <div id='progress${rand+index}' class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                         </div>
                         
                     </div>
             </div>`);
-            
-            let reader = new FileReader();
 
+            let reader = new FileReader();
             reader.addEventListener("load", function () {
-                let preview = document.querySelector(`#preview${rand+i}`);
-                console.log(preview);
-                preview.src = reader.result;
+                $(`#preview-${rand+index}>div`).remove();
+                $(`#preview-${rand+index}`).append(`<img src="${reader.result}" class="card-img" alt="..." style="width: 80px; height: 100%;">`);
             }, false);
             
             reader.readAsDataURL(file);
-            
+        });
+
+        // Send files to server with Ajax
+        let promises = droppedFiles.map((file, index) => new Promise((resolve, reject) => {
             let ajaxData = new FormData();
             ajaxData.append('image', file);
-            console.log(ajaxData);
+            const progressBar = $(`#progress${rand+index}`);
 
             $.ajax({
                 url: $form.attr('action'),
@@ -70,21 +69,20 @@ if (isAdvancedUpload) {
                 processData: false,
                 
                 complete: function() {
-                    $form.removeClass('is-uploading');
+                    resolve();
                 },
+
                 success: function(data) {
                     $form.addClass( data.success == true ? 'is-success' : 'is-error' );
+                    progressBar.removeClass('bg-info');
+                    progressBar.addClass('bg-success');    
                 },
-                error: function() {
 
-                },
-                
+                error: () => reject("problem with server"),
+
                 xhr: function () {
                     let xhr = new XMLHttpRequest();
-        
                     xhr.upload.addEventListener('progress', function (event) {
-                        let progressBar = $(`#progress${rand+i}`);
-        
                         if (event.lengthComputable) {
                             let percent = Math.floor((event.loaded / event.total) * 100);
                             console.log(percent);
@@ -92,14 +90,16 @@ if (isAdvancedUpload) {
                             progressBar.text(percent + '%');
                         }
                     });
-        
                     return xhr;
                 }
             });
-        }
-        
-    });
+        }));
 
-        
+        Promise.all(promises)
+        .then(() => {
+            $form.removeClass('is-uploading');
+        })
+        .catch(err => console.log(err));
+    });
 }
 
