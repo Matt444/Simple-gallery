@@ -1,4 +1,4 @@
-Projekt realizowany w ramach projektu WWW i Języki Skryptowe
+Projekt zrealizowany w ramach przedmiotu WWW i Języki Skryptowe
 
 Backend aplikacji oparty jest na języku JS, module express.js i systemie szablonów pug.
 
