@@ -4,7 +4,7 @@ Designed and coded as project for university classes - "WWW i Języki skryptowe"
 Functionalities:
 - showing images by chosen category,
 - preview,
-- adding images,
+- adding/deleting images,
 - editing categories, signatures and miniatures' settings (size and modes of cut out).
 
 ## Technologies
@@ -24,7 +24,7 @@ Clone project and install dependecies using `npm install` then run `npm start`. 
 > Upload page
 ![image](https://user-images.githubusercontent.com/64275057/108281936-0693c700-7181-11eb-8d20-e63efdaea39c.png)
 
-> Edit page
+> Edit image page
 ![image](https://user-images.githubusercontent.com/64275057/108281974-17dcd380-7181-11eb-8792-8bb376fff551.png)
 
 > Miniature configuration page
