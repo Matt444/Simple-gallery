@@ -22,7 +22,7 @@ Clone project and install dependecies using `npm install` then run `npm start`. 
 ![image](https://user-images.githubusercontent.com/64275057/108281899-f2e86080-7180-11eb-9784-c7d5fd178810.png)
 
 > Upload page
-![image](https://user-images.githubusercontent.com/64275057/108281936-0693c700-7181-11eb-8d20-e63efdaea39c.png)
+![image](https://user-images.githubusercontent.com/64275057/108282907-b0278800-7182-11eb-805e-c6c0d2d3a8ff.png)
 
 > Edit image page
 ![image](https://user-images.githubusercontent.com/64275057/108281974-17dcd380-7181-11eb-8792-8bb376fff551.png)
