@@ -1,16 +1,16 @@
 # Simple gallery website
 Designed and coded as project for university classes - "WWW i Języki skryptowe".
 
-Functionalities:
+> Frontend: Bootstrap and fancybox
+
+> Backend: Express.js with pug templates and MongoDB database
+
+## Features:
 - showing images by chosen category,
 - preview,
 - adding/deleting images,
 - editing categories, signatures and miniatures' settings (size and modes of cut out).
-
-## Technologies
-* Frontend: Bootstrap and fancybox
-* Backend: Express.js with pug templates and MongoDB database
-
+ 
 ## Getting started
 Clone project and install dependecies using `npm install` then run `npm start`. Website is currently hosted on [heroku](http://p-galeria.herokuapp.com).
 
